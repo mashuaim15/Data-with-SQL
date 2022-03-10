@@ -1,0 +1,17 @@
+#This SQL select random ten from each group <name>
+
+SELECT *
+FROM (
+    SELECT *, RANK() OVER (PARTITION BY name ORDER BY rand()) AS rnk
+    FROM your_table
+) AS x
+WHERE rnk <= 10
+
+#This SQL select top ten by <age> from each group <name>
+
+SELECT *
+FROM (
+    SELECT *, RANK() OVER (PARTITION BY name ORDER BY age desc) AS rnk
+    FROM your_table
+) AS x
+WHERE rnk <= 10
